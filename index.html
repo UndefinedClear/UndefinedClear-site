@@ -1,110 +1,107 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Репозиторий EasyChecker</title>
-    <style>
-        /* Общий стиль для страницы */
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #2e0249, #5e237d); /* Градиент от черного к фиолетовому */
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Добро пожаловать на сайт выбора подсайтов.">
+  <title>Выбор подсайта</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
 
-        /* Контейнер для всего контента */
-        .container {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            max-width: 500px;
-            width: 100%;
-        }
+    .container {
+      max-width: 1200px;
+      padding: 20px;
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
 
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: #d1d1d1;
-        }
+    .subsites {
+      display: flex;
+      justify-content: space-around;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
 
-        /* Кнопка перехода на GitHub */
-        a {
-            display: inline-block;
-            padding: 15px 30px;
-            background-color: #7a3b8f; /* Фиолетовый цвет кнопки */
-            color: #fff;
-            font-size: 1.2rem;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
+    .subsite {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        /* Эффект при наведении на кнопку */
-        a:hover {
-            background-color: #9b46a0; /* Светлый фиолетовый при наведении */
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
+    .subsite:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
 
-        /* Анимация для текста */
-        .animate {
-            animation: fadeIn 1.5s ease-in-out;
-        }
+    .subsite h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .subsite p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 15px;
+    }
 
-        /* Маленькие экраны */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
+    .btn {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
 
-            h1 {
-                font-size: 2rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-
-            a {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-    <div class="container animate">
-        <h1>Добро пожаловать в EasyChecker</h1>
-        <p>Перейдите по ссылке ниже, чтобы просмотреть репозиторий и начать использовать EasyChecker.</p>
-        <a href="https://github.com/avirt1274/EasyChecker" target="_blank">Перейти на GitHub</a>
+  <div class="container">
+    <h1>Добро пожаловать на сайт</h1>
+    <p>Выберите один из подсайтов ниже:</p>
+
+    <div class="subsites">
+      <div class="subsite">
+        <h2>Блог</h2>
+        <p>Читай статьи и новости.</p>
+        <a href="/blog" class="btn">Перейти в блог</a>
+      </div>
+      
+      <div class="subsite">
+        <h2>Портфолио</h2>
+        <p>Просмотр моих работ и проектов.</p>
+        <a href="/portfolio" class="btn">Перейти в портфолио</a>
+      </div>
+
+      <div class="subsite">
+        <h2>Контакты</h2>
+        <p>Связаться со мной.</p>
+        <a href="/contacts" class="btn">Перейти в контакты</a>
+      </div>
     </div>
+  </div>
 </body>
 </html>
