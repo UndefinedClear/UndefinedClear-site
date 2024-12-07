@@ -20,9 +20,10 @@
       overflow: hidden;
       position: relative;
       flex-direction: column;
+      text-align: center;
     }
 
-    /* Фон с градиентом и анимацией */
+    /* Фон с анимацией градиента */
     .background {
       position: absolute;
       top: 0;
@@ -54,13 +55,13 @@
     .container {
       width: 90%;
       max-width: 800px;
-      text-align: center;
       padding: 2em;
       background: rgba(0, 0, 0, 0.6);
       border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
       opacity: 0;
       animation: fadeIn 1s forwards;
+      transition: transform 0.5s ease-out;
     }
 
     /* Анимация для появления контейнера */
@@ -69,6 +70,7 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
+    /* Анимация для плавного появления заголовка */
     h1 {
       font-size: 2.5em;
       margin-bottom: 0.5em;
@@ -78,12 +80,12 @@
       animation: slideIn 1s ease-out 0.5s forwards;
     }
 
-    /* Анимация для заголовка */
     @keyframes slideIn {
       0% { opacity: 0; transform: translateX(-50px); }
       100% { opacity: 1; transform: translateX(0); }
     }
 
+    /* Текст */
     p {
       font-size: 1.2em;
       margin-bottom: 2em;
@@ -92,7 +94,6 @@
       animation: fadeInText 1s ease-out 1s forwards;
     }
 
-    /* Анимация для текста */
     @keyframes fadeInText {
       0% { opacity: 0; transform: translateY(30px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -147,15 +148,23 @@
         font-size: 1.2em;
       }
     }
+
+    /* Мелкие эффекты на мышь */
+    .container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
   </style>
 </head>
 <body>
+
   <!-- Фон с анимацией градиента -->
   <div class="background"></div>
 
   <div class="container">
     <h1>Скачайте EasyChecker</h1>
-    <p style="user-select: none;">Мы сотрудничаем с HolyWorld, ReallyWorld и FunTime.<br> Мы гарантируем вашу безопасность!</p><br>
+    <p>Мы сотрудничаем с HolyWorld, ReallyWorld и FunTime.<br> Мы гарантируем вашу безопасность!</p>
     <p class="password">Пароль: EasyCheckerBeta.exe</p>
     <a href="https://mega.nz/file/tRhRBbyL#fgnmDDigkv33meRG4QF0ncfA66h3jpT703kZxvAAhWQ" download>Скачать EasyChecker</a>
   </div>
