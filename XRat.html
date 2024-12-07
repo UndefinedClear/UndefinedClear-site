@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XRat - Инструмент для удаленного управления</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Общие стили */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212; /* Темный фон */
+      color: #ffffff; /* Белый цвет текста */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    /* Виньетка */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 70%);
+      z-index: 1;
+    }
+
+    /* Контейнер с контентом */
+    .container {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      padding: 2em;
+      background: rgba(33, 33, 33, 0.9); /* Темно-серый фон */
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      transition: transform 0.5s ease-out;
+      z-index: 2;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Заголовок */
+    h1 {
+      font-size: 3em;
+      margin-bottom: 1em;
+      font-weight: 700;
+      color: #f39c12; /* Желто-оранжевый акцент для заголовка */
+      opacity: 0;
+      animation: slideIn 1s ease-out 0.5s forwards;
+    }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateX(-50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Описание проекта */
+    p {
+      font-size: 1.3em;
+      margin-bottom: 2em;
+      color: #bdc3c7; /* Светло-серый для текста */
+      opacity: 0;
+      animation: fadeInText 1s ease-out 1s forwards;
+    }
+
+    @keyframes fadeInText {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Кнопка для скачивания */
+    a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 1.3em;
+      padding: 12px 24px;
+      background-color: #3498db; /* Синий цвет для кнопки */
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      animation: fadeInLink 1s ease-out 1.5s forwards;
+      cursor: pointer;
+    }
+
+    @keyframes fadeInLink {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    a:hover {
+      background-color: #8e44ad; /* Фиолетовый при наведении */
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.4em;
+      }
+      p {
+        font-size: 1em;
+      }
+    }
+
+    /* Мелкие эффекты на мышь */
+    .container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>XRat - Инструмент для удаленного управления</h1>
+    <p>Проект XRat предоставляет вам мощный инструмент для удаленного управления компьютерами через сеть. Он обеспечивает стабильную работу с возможностью получения полной информации о системе.</p>
+    <p>Для скачивания и подробного изучения, посетите репозиторий на GitHub.</p>
+    <a href="https://github.com/avirt1274/XRat" target="_blank">Перейти на GitHub</a>
+  </div>
+
+</body>
+</html>
