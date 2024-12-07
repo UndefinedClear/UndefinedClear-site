@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Документация XRat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- Подключаем библиотеку marked.js -->
+  <style>
+    /* Общие стили */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4; /* Светлый фон */
+      color: #333333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+      overflow: auto;
+      position: relative;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 1000px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 1em;
+      color: #333333;
+    }
+
+    .content {
+      font-size: 1.2em;
+      color: #444444;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    /* Стили для заголовков внутри markdown */
+    h2, h3 {
+      color: #3498db;
+    }
+
+    /* Стиль для ссылок */
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Документация XRat</h1>
+    <div id="markdownContent" class="content"></div>
+  </div>
+
+  <script>
+    // Функция для загрузки файла README.md и парсинга его в HTML
+    async function loadMarkdown() {
+      const response = await fetch('README.md'); // Путь к файлу README.md
+      const markdownText = await response.text();
+      const htmlContent = marked(markdownText); // Преобразуем markdown в HTML
+      document.getElementById('markdownContent').innerHTML = htmlContent; // Вставляем преобразованный HTML в контейнер
+    }
+
+    // Загружаем Markdown после загрузки страницы
+    window.onload = loadMarkdown;
+  </script>
+
+</body>
+</html>
