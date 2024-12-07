@@ -74,7 +74,7 @@
   <script>
     // Функция для загрузки файла README.md и парсинга его в HTML
     async function loadMarkdown() {
-      const response = await fetch('README.md'); // Путь к файлу README.md
+      const response = await fetch('https://raw.githubusercontent.com/avirt1274/XRat/refs/heads/master/README.md'); // Путь к файлу README.md
       const markdownText = await response.text();
       const htmlContent = marked.parse(markdownText); // Используем функцию parse для преобразования markdown в HTML
       document.getElementById('markdownContent').innerHTML = htmlContent; // Вставляем преобразованный HTML в контейнер
