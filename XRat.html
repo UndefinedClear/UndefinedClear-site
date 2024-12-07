@@ -3,139 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XRat - Инструмент для удаленного управления</title>
+  <title>XRat - ратка через дискорд</title>
   <link href="favicon.ico" rel="icon"></link>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Общие стили */
-    body {
-      font-family: 'Roboto', sans-serif;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
       background-color: #121212; /* Темный фон */
-      color: #ffffff; /* Белый цвет текста */
+      color: #ffffff;
+      overflow: hidden;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
       position: relative;
-      flex-direction: column;
-      text-align: center;
     }
 
-    /* Виньетка */
-    body::before {
-      content: "";
+    .container {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(circle, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 70%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       z-index: 1;
+      text-align: center;
+      padding: 20px;
     }
 
-    /* Контейнер с контентом */
-    .container {
-      position: relative;
-      width: 90%;
-      max-width: 800px;
-      padding: 2em;
-      background: rgba(33, 33, 33, 0.9); /* Темно-серый фон */
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      animation: fadeIn 1s forwards;
-      transition: transform 0.5s ease-out;
-      z-index: 2;
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      color: #3498db;
+      animation: fadeIn 2s ease-out forwards;
     }
 
+    p {
+      font-size: 1.2em;
+      color: #dddddd;
+      animation: fadeIn 3s ease-out forwards;
+    }
+
+    .link {
+      font-size: 1.5em;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #3498db;
+      color: #ffffff;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .link:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
+
+    /* Анимация появления */
     @keyframes fadeIn {
       0% { opacity: 0; transform: translateY(50px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Заголовок */
-    h1 {
-      font-size: 3em;
-      margin-bottom: 1em;
-      font-weight: 700;
-      color: #f39c12; /* Желто-оранжевый акцент для заголовка */
-      opacity: 0;
-      animation: slideIn 1s ease-out 0.5s forwards;
+    /* Эффект параллакса для фона */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://via.placeholder.com/1500x1500') center center/cover no-repeat;
+      z-index: -1;
+      animation: parallax 10s infinite linear;
     }
 
-    @keyframes slideIn {
-      0% { opacity: 0; transform: translateX(-50px); }
-      100% { opacity: 1; transform: translateX(0); }
+    @keyframes parallax {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(50%); }
     }
 
-    /* Описание проекта */
-    p {
-      font-size: 1.3em;
-      margin-bottom: 2em;
-      color: #bdc3c7; /* Светло-серый для текста */
-      opacity: 0;
-      animation: fadeInText 1s ease-out 1s forwards;
+    /* Стиль для маркдауна */
+    .content {
+      max-width: 800px;
+      text-align: left;
+      margin-top: 20px;
+      animation: fadeInContent 4s ease-out forwards;
     }
 
-    @keyframes fadeInText {
+    @keyframes fadeInContent {
       0% { opacity: 0; transform: translateY(30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Кнопка для скачивания */
-    a {
-      text-decoration: none;
-      color: #ffffff;
-      font-size: 1.3em;
-      padding: 12px 24px;
-      background-color: rgb(0,0,0);
-      border-radius: 8px;
-      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      animation: fadeInLink 1s ease-out 1.5s forwards;
-      cursor: pointer;
-    }
-
-    @keyframes fadeInLink {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    a:hover {
-      background-color: #232323;
-      transform: scale(1.1);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Адаптивность */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.4em;
-      }
-      p {
-        font-size: 1em;
-      }
-    }
-
-    /* Мелкие эффекты на мышь */
-    .container:hover {
-      transform: scale(1.05);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-    }
   </style>
 </head>
 <body>
 
+  <div class="background"></div>
+
   <div class="container">
-    <h1>XRat - Инструмент для удаленного управления</h1>
-    <p>Проект XRat предоставляет вам мощный инструмент для удаленного управления компьютерами через сеть. Он обеспечивает стабильную работу с возможностью получения полной информации о системе.</p>
-    <p>Для скачивания и подробного изучения, посетите репозиторий на GitHub.</p>
-    <a href="https://github.com/avirt1274/XRat" target="_blank">Перейти на GitHub</a>
-    <a href="https://avirt1274.github.io/avirt1274-site/XRatDocumentation.html" target="_blank">Перейти на документацию</a>
+    <h1>Документация XRat</h1>
+    <p>Простой и мощный инструмент для удаленного доступа.</p>
+    <a href="#content" class="link">Читать документацию</a>
+
+    <div id="content" class="content">
+      <h2>Что такое XRat?</h2>
+      <p>XRat - это высокоэффективное приложение для удаленного управления, использующее Discord.</p>
+
+      <h2>Особенности</h2>
+      <ul>
+        <li>Только windows 7+</li>
+        <li>Удобный интерфейс</li>
+        <li>Встроенные функции безопасности</li>
+        <li>Ратка управляется через сервер Discord.</li>
+      </ul>
+
+      <h2>Как установить</h2>
+      <p>Чтобы установить XRat, просто скачайте последнюю версию с нашего официального репозитория и следуйте инструкциям по установке.</p>
+
+      <a href="https://github.com/avirt1274/XRat" class="link" target="_blank">Перейти к репозиторию на GitHub</a>
+    </div>
   </div>
 
 </body>
