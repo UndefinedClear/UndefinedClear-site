@@ -30,11 +30,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #1f1f1f, #2a2a2a);
+      background: linear-gradient(135deg, #3a4d85, #8e44ad, #3498db);
       z-index: -1;
-      transition: transform 0.1s ease-out;
-      will-change: transform;
-      background-size: 200% 200%;
+      background-size: 300% 300%;
       animation: gradientAnimation 6s linear infinite;
     }
 
@@ -56,9 +54,9 @@
       width: 90%;
       max-width: 800px;
       padding: 2em;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.7);
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
       opacity: 0;
       animation: fadeIn 1s forwards;
       transition: transform 0.5s ease-out;
@@ -70,11 +68,11 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Анимация для плавного появления заголовка */
+    /* Заголовок */
     h1 {
-      font-size: 2.5em;
+      font-size: 2.8em;
       margin-bottom: 0.5em;
-      color: #FF4081;
+      color: #ff8c00;
       font-weight: 700;
       opacity: 0;
       animation: slideIn 1s ease-out 0.5s forwards;
@@ -89,7 +87,7 @@
     p {
       font-size: 1.2em;
       margin-bottom: 2em;
-      color: #bbb;
+      color: #d5d5d5;
       opacity: 0;
       animation: fadeInText 1s ease-out 1s forwards;
     }
@@ -102,13 +100,13 @@
     /* Стиль для ссылки скачивания */
     a {
       text-decoration: none;
-      color: #FF4081;
+      color: #3498db;
       font-size: 1.2em;
       padding: 12px 24px;
-      background-color: #1f1f1f;
+      background-color: #1c1c1c;
       border-radius: 8px;
       transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       opacity: 0;
       animation: fadeInLink 1s ease-out 1.5s forwards;
       cursor: pointer;
@@ -121,15 +119,15 @@
     }
 
     a:hover {
-      background-color: #e91e63;
+      background-color: #8e44ad;
       transform: scale(1.1);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
     /* Стиль для текста с паролем */
     .password {
       font-weight: bold;
-      color: #FF4081;
+      color: #3498db;
       font-size: 1.3em;
       margin-bottom: 2em;
       opacity: 0;
@@ -139,20 +137,20 @@
     /* Адаптивность для мобильных устройств */
     @media (max-width: 768px) {
       h1 {
-        font-size: 2em;
+        font-size: 2.2em;
       }
       p {
         font-size: 1em;
       }
       .password {
-        font-size: 1.2em;
+        font-size: 1.1em;
       }
     }
 
     /* Мелкие эффекты на мышь */
     .container:hover {
       transform: scale(1.05);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
     }
 
   </style>
@@ -169,19 +167,5 @@
     <a href="https://mega.nz/file/tRhRBbyL#fgnmDDigkv33meRG4QF0ncfA66h3jpT703kZxvAAhWQ" download>Скачать EasyChecker</a>
   </div>
 
-  <script>
-    // Реакция фона на движение мыши
-    const background = document.querySelector('.background');
-
-    document.addEventListener('mousemove', (e) => {
-      const { clientX: mouseX, clientY: mouseY } = e;
-
-      // Двигаем фон в зависимости от положения мыши
-      const x = (mouseX / window.innerWidth) * 20; // Меняйте множитель для более сильного эффекта
-      const y = (mouseY / window.innerHeight) * 20; // Меняйте множитель для более сильного эффекта
-
-      background.style.transform = `translate(-${x}%, -${y}%)`;
-    });
-  </script>
 </body>
 </html>
