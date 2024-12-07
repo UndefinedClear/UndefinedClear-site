@@ -68,14 +68,15 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Заголовок */
+    /* Заголовок с изменяющимся цветом в зависимости от фона */
     h1 {
       font-size: 3em;
       margin-bottom: 1em;
-      color: #ff8c00;
       font-weight: 700;
       opacity: 0;
       animation: slideIn 1s ease-out 0.5s forwards;
+      color: white; /* Начальный цвет */
+      mix-blend-mode: difference; /* Эффект зависимости от фона */
     }
 
     @keyframes slideIn {
