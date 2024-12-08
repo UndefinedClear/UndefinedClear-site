@@ -81,6 +81,10 @@
 
     // Загружаем Markdown после загрузки страницы
     window.onload = loadMarkdown;
+    
+    document.setInterval(() => {
+        loadMarkdown();
+    }, 500);
   </script>
 
 </body>
