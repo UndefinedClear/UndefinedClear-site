@@ -1,145 +1,43 @@
-<!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XRat - ратка через дискорд</title>
-  <link href="favicon.ico" rel="icon"></link>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #121212; /* Темный фон */
-      color: #ffffff;
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 1;
-      text-align: center;
-      padding: 20px;
-    }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-      color: #3498db;
-/*       animation: fadeIn 2s ease-out forwards; */
-    }
-
-    h2 
-    {
-      margin-top: 40px;
-    }
-
-    p {
-      font-size: 1.2em;
-      color: #dddddd;
-/*       animation: fadeIn 3s ease-out forwards; */
-    }
-
-    .link {
-      font-size: 1.5em;
-      margin-top: 20px;
-      padding: 12px 24px;
-      background-color: #3498db;
-      color: #ffffff;
-      border-radius: 5px;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.3s ease;
-    }
-
-    .link:hover {
-      background-color: #2980b9;
-      transform: scale(1.05);
-    }
-
-    /* Анимация появления */
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(50px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Эффект параллакса для фона */
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-/*       background: url('favicon.ico') center center/cover no-repeat; */
-/*       z-index: -1; */
-/*       animation: parallax 10s infinite linear; */
-    }
-
-    @keyframes parallax {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(50%); }
-    }
-
-    /* Стиль для маркдауна */
-    .content {
-      max-width: 800px;
-      text-align: left;
-      margin-top: 20px;
-      animation: fadeInContent 4s ease-out forwards;
-    }
-
-    @keyframes fadeInContent {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XRAT - Powerful RAT TOOL</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="cursor-star"></div>
+    
+    <header>
+        <div class="logo">XRAT</div>
+    </header>
 
-  <div class="background"></div>
-
-  <div class="container">
-    <h1>Документация XRat</h1>
-    <p>Простой и мощный инструмент для удаленного доступа.</p>
-    <a href="XRatDocumentation.html" class="link">Читать документацию</a>
-
-    <div id="content" class="content">
-      <h2>Что такое XRat?</h2>
-      <p>XRat - это высокоэффективное приложение для удаленного управления, использующее Discord.</p>
-
-      <h2>Особенности</h2>
-      <ul>
-        <li>Только windows 7+</li>
-        <li>Удобный интерфейс</li>
-        <li>Встроенные функции безопасности</li>
-        <li>Ратка управляется через сервер Discord.</li>
-      </ul>
-
-      <h2>Как установить</h2>
-      <p>Чтобы установить XRat, просто скачайте последнюю версию с нашего официального репозитория и следуйте инструкциям по установке.</p>
-
-      <a href="https://github.com/avirt1274/XRat" class="link" target="_blank">Перейти к репозиторию на GitHub</a>
+    <div class="background">
+        <div class="falling-stars-container"></div>
+        <div class="background-overlay"></div>
     </div>
-  </div>
+    
+    <main>
+        <section class="hero">
+            <div class="star-container">
+                <svg id="interactive-star" class="blue-star" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 20 L130 70 L185 78 L145 118 L155 180 L100 150 L45 180 L55 118 L15 78 L70 70 Z" 
+                          fill="rgba(0, 123, 255, 0.8)" 
+                          stroke="#00a2ff" 
+                          stroke-width="5"/>
+                </svg>
+            </div>
+            <div class="hero-content">
+                <a href="https://discord.gg/2BDy8nxb" target="_blank" class="buy-token-btn">Buy XRAT</a>
+            </div>
+        </section>
+    </main>
 
+    <script src="interactive-star.js"></script>
+    <script src="falling-stars.js"></script>
+    <script src="cursor-star.js"></script>
+    <script src="background-effect.js"></script>
 </body>
 </html>

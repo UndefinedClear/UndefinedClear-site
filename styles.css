@@ -1,0 +1,150 @@
+:root {
+    --deep-blue: #0a0a1a;
+    --neon-blue: #00a2ff;
+    --neon-purple: #9c27b0;
+    --neon-green: #00ff7f;
+    --dark-bg: #0a0a1a;
+    --star-color: rgba(0, 123, 255, 0.8);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background-color: var(--dark-bg);
+    color: white;
+    overflow-x: hidden;
+}
+
+.cursor-star {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Cpath d="M100 20 L130 70 L185 78 L145 118 L155 180 L100 150 L45 180 L55 118 L15 78 L70 70 Z" fill="rgba(0, 123, 255, 0.5)" /%3E%3C/svg%3E') no-repeat center;
+    background-size: contain;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 2rem;
+    color: var(--neon-blue);
+    font-weight: bold;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(9,9,26,0.9) 0%, rgba(19,19,45,0.9) 100%);
+    z-index: -1;
+    overflow: hidden;
+    transition: background 0.5s ease;
+}
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    pointer-events: none;
+    transition: background 0.5s ease;
+}
+
+.falling-stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.falling-star {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%);
+    transform: rotate(-45deg);
+    opacity: 0.7;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    position: relative;
+}
+
+.star-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease;
+}
+
+.blue-star {
+    width: 300px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.blue-star:hover {
+    transform: scale(1.05);
+}
+
+.hero-content {
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.buy-token-btn {
+    display: inline-block;
+    background: var(--neon-green);
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: none;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px var(--neon-green);
+    text-decoration: none;
+    color: black;
+}
+
+.buy-token-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--neon-green);
+}
+
+@media (max-width: 768px) {
+    .blue-star {
+        width: 200px;
+    }
+}
