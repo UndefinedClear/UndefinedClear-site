@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* 
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+} */
+
+body {
+    margin-top: 30vh;
+
+    user-select: none;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    background-image: url(https://developerreva.github.io/assets/videos/matrix.gif);
+    color: #fff;
+    line-height: 1.6;
+}
+
+strong {
+    color: #ff9100;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fade-in 2s forwards;
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fade-in 2s forwards 0.5s; /* Задержка для профиля */
+}
+
+.profile img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.info h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.info p {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+}
+
+footer {
+    text-align: center;
+    font-size: 1em;
+    opacity: 0;
+    z-index: -1;
+    animation: fade-in .4.5s forwards 1s; /* Задержка для футера */
+}
+
+#show-yap {
+    cursor: pointer;
+}
+
+footer p {
+    color: #888;
+}
+
+div #popup {
+    /* POSITION */
+    /* top: 50px;
+    left: 300px; */
+    top: 0;
+    left: 0;
+    /* POSITION */
+
+    /* SIZE */
+    /* width: 60%;
+    height: 50%; */
+    width: 99%;
+    height: 99%;
+    /* SIZE */
+
+    /* CSS */
+    background-color: #000;
+    background-image: url(https://developerreva.github.io/assets/videos/matrix.gif);
+
+    border: 1px rgb(0, 0, 0) solid;
+    border-radius: .5vh;
+
+    z-index: 1;
+
+    animation: fade-in .5s;
+
+    transition: .3s;
+
+    justify-content: center; /* Центрирует по горизонтали */
+    align-items: center; /* Центрирует по вертикали */
+
+    position: fixed;
+    /* CSS */
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
