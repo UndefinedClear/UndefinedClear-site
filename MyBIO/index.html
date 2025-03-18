@@ -7,6 +7,8 @@
     <title>Моя страница - Undefined Clear</title>
     <link rel="stylesheet" href="style.css">
 
+
+    <!-- TYPING MACHINE SYSTEM -->
     <style>
         .typing-text {
             font-family: 'Courier New', Courier, monospace;
@@ -14,7 +16,7 @@
             white-space: nowrap;
             overflow: hidden;
             border-right: 2px solid rgb(255, 123, 0);
-            /* Симулирует мигающий курсор */
+            /* Симулирует мигающий курсор (цвет) */
             width: 0;
             animation: typing 2s steps(360) 1s forwards, blink 0.75s step-end infinite;
         }
@@ -39,13 +41,37 @@
             }
         }
     </style>
+    <!-- TYPING MACHINE SYSTEM -->
+
+    <!-- PRE-LOADED-STYLES -->
+    <style>
+        .pre-loaded {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        .pre-loaded-btn {
+            width: 300px;
+            height: 100px;
+            border: none;
+            cursor: pointer;
+            border-radius: 1vh;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            font-size: 40px;
+        }
+    </style>
+    <!-- PRE-LOADED-STYLES -->
 </head>
 
 <body>
-    <div style="justify-content: center; align-items: center; display: flex;">
-        <button onclick="enable()" id="open" style="width: 300px; height: 100px; border: none; cursor: pointer; border-radius: 1vh; background-color: rgb(0, 0, 0); color: white; font-size: 40px;">Открыть</button>
+    <!-- Pre-loaded content -->
+    <div class="pre-loaded">
+        <button onclick="enable()" id="open" class="pre-loaded-btn">Открыть</button>
     </div>
 
+    <!-- after pre-loaded content -->
     <div id="container" class="container" hidden>
         <!-- <header>
             <h1>Моя страница</h1>
@@ -76,7 +102,7 @@
             <div class="popup-p-wrapper">
                 <p class="typing-text" style="margin-left: 10px; font-size: 40px;">
                     <strong>C#</strong>, <strong>HTML</strong>, <strong>CSS</strong>, <strong>JS</strong>,
-                    <strong>Node.js</strong>,<br><strong>Java</strong>, <strong>Python</strong>,
+                    <strong>Node.js</strong>, <strong>Java</strong>, <strong>Python</strong>,
                     <strong>Lua</strong>
                 </p>
             </div>
@@ -88,7 +114,7 @@
             <p>&copy; 2025 Undefined Clear. Все права защищены.</p>
         </footer>
 
-        <audio id="music" src="dabbackwood_-_Kod_Giass_78827962.mp3"></audio>
+        <audio id="music" src="music.mp3"></audio>
     </div>
 
 
