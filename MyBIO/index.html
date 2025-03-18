@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя страница - Undefined Clear</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .typing-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 24px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid rgb(255, 123, 0);
+            /* Симулирует мигающий курсор */
+            width: 0;
+            animation: typing 2s steps(360) 1s forwards, blink 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+
+            100% {
+                border-color: rgb(0, 0, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div style="justify-content: center; align-items: center; display: flex;">
+        <button onclick="enable()" id="open" style="width: 300px; height: 100px; border: none; cursor: pointer; border-radius: 1vh; background-color: rgb(0, 0, 0); color: white; font-size: 40px;">Открыть</button>
+    </div>
+
+    <div id="container" class="container" hidden>
+        <!-- <header>
+            <h1>Моя страница</h1>
+            <p>Добро пожаловать на мою персональную страницу!</p>
+        </header> -->
+
+        <section class="profile">
+            <img onclick="" id="avatar" alt="Фото профиля">
+            <div class="info">
+                <h2 class="typing-text">Undefined Clear</h2>
+                <p>Профессия: <strong>Веб-разработчик</strong></p>
+                <p>ЯП: <strong id="show-yap">Посмотреть</strong></p>
+                <!-- <p>Местоположение: <strong>Null</strong></p> -->
+                <p>Контакты: <strong>avirtgd@gmail.com</strong></p>
+            </div>
+        </section>
+
+        <!-- Ваш попап -->
+        <div id="popup" hidden>
+            <div class="popup-img-wrapper" style="text-align: right;">
+                <img id="close-btn" style="cursor: pointer;" width="40" height="40" src="close.svg">
+            </div>
+
+            <div style="text-align: center;" class="popup-title-wrapper">
+                <h1 class="typing-text" style="margin: auto; font-size: 60px;">ЯП Которые я знаю</h1>
+            </div>
+
+            <div class="popup-p-wrapper">
+                <p class="typing-text" style="margin-left: 10px; font-size: 40px;">
+                    <strong>C#</strong>, <strong>HTML</strong>, <strong>CSS</strong>, <strong>JS</strong>,
+                    <strong>Node.js</strong>,<br><strong>Java</strong>, <strong>Python</strong>,
+                    <strong>Lua</strong>
+                </p>
+            </div>
+        </div>
+
+
+
+        <footer>
+            <p>&copy; 2025 Undefined Clear. Все права защищены.</p>
+        </footer>
+
+        <audio id="music" src="dabbackwood_-_Kod_Giass_78827962.mp3"></audio>
+    </div>
+
+
+    <script src="script.js"></script>
+    <script src="player.js"></script>
+</body>
+
+</html>
