@@ -9,28 +9,24 @@ const avatar_element = document.getElementById('avatar');
 
 // EVENTS
 window.addEventListener('DOMContentLoaded', dom_loaded_event);
-//document.addEventListener("touchmove", touchMove);
 
 // Отслеживаем движение мыши
 document.addEventListener('mousemove', function(event) {
     const container = document.querySelector('.profile');
+    if (!container) return; // Check if container exists
 
     const curveX = 30;
     const curveY = 30;
 
-    // Получаем координаты мыши
     const mouseX = event.clientX;
     const mouseY = event.clientY;
 
-    // Получаем ширину и высоту окна
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
-    // Нормализуем координаты мыши для получения значений от -1 до 1
-    const xAxis = (mouseX / windowWidth) - 0.5; // Диапазон от -0.5 до 0.5
-    const yAxis = (mouseY / windowHeight) - 0.5; // Диапазон от -0.5 до 0.5
+    const xAxis = (mouseX / windowWidth) - 0.5;
+    const yAxis = (mouseY / windowHeight) - 0.5;
 
-    // Применяем трансформацию, чтобы создать эффект 3D
     container.style.transform = `rotateX(${yAxis * curveX}deg) rotateY(${xAxis * curveY}deg)`;
 });
 
@@ -59,12 +55,20 @@ function close_yap_event(event) {
 function avatar_event(event) {
     if (avatar_element) {
         avatar_element.setAttribute('src', avatar); // Set avatar image
+        avatar_element.onerror = function() {
+            console.error('Failed to load avatar image.');
+        };
     }
 }
 
 function enable() {
-    let music = document.getElementById('music'); music.volume = 0.2;
-    music.play();
+    let music = document.getElementById('music');
+    if (music) {
+        music.volume = 0.2;
+        music.play().catch(error => {
+            console.error('Failed to play music:', error);
+        });
+    }
 
     document.getElementById('container').removeAttribute('hidden');
     document.getElementById('open').setAttribute('hidden', true);
@@ -73,11 +77,10 @@ function enable() {
 function dom_loaded_event(event) {
     avatar_event(event);
     
-    var link = document.querySelector("link[rel~='icon']");
+    let link = document.querySelector("link[rel~='icon']");
     if (!link) {
         link = document.createElement('link');
         link.rel = 'icon';
         document.head.appendChild(link);
     }
     link.href = avatar;
-}
