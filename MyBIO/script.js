@@ -9,7 +9,7 @@ const avatar_element = document.getElementById('avatar');
 
 // EVENTS
 window.addEventListener('DOMContentLoaded', dom_loaded_event);
-document.addEventListener("touchmove", touchMove);
+//document.addEventListener("touchmove", touchMove);
 
 // Отслеживаем движение мыши
 document.addEventListener('mousemove', function(event) {
@@ -49,15 +49,6 @@ function show_yap_event(event) {
         popup_element.removeAttribute('hidden');
     }
 }
-
-function touchMovehhh(event) {
-         // получаем касание
-         const touch = event.changedTouches[0]; 
-         // вычисляем нажатый дочерний элемент  
-         const target = document.elementFromPoint(touch.clientX, touch.clientY);
-         // далее как обычно   
-         this.dosome(target);
-      }
 
 // Отслеживаем движение пальца
 function touchMove(event) {
