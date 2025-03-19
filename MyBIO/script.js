@@ -50,6 +50,41 @@ function show_yap_event(event) {
     }
 }
 
+function touchMovehhh(event) {
+         // получаем касание
+         const touch = event.changedTouches[0]; 
+         // вычисляем нажатый дочерний элемент  
+         const target = document.elementFromPoint(touch.clientX, touch.clientY);
+         // далее как обычно   
+         this.dosome(target);
+      }
+
+// Отслеживаем движение пальца
+function touchMove(event) {
+    const container = document.querySelector('.profile');
+
+    const curveX = 30;
+    const curveY = 30;
+
+    // Получаем координаты пальца
+    // получаем касание
+    const touch = event.changedTouches[0];
+    
+    const mouseX = touch.clientX;
+    const mouseY = touch.clientY;
+
+    // Получаем ширину и высоту окна
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    // Нормализуем координаты мыши для получения значений от -1 до 1
+    const xAxis = (mouseX / windowWidth) - 0.5; // Диапазон от -0.5 до 0.5
+    const yAxis = (mouseY / windowHeight) - 0.5; // Диапазон от -0.5 до 0.5
+
+    // Применяем трансформацию, чтобы создать эффект 3D
+    container.style.transform = `rotateX(${yAxis * curveX}deg) rotateY(${xAxis * curveY}deg)`;
+});
+
 function close_yap_event(event) {
     if (popup_element) {
         popup_element.setAttribute('hidden', true);
