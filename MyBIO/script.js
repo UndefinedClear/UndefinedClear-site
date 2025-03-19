@@ -9,6 +9,7 @@ const avatar_element = document.getElementById('avatar');
 
 // EVENTS
 window.addEventListener('DOMContentLoaded', dom_loaded_event);
+document.addEventListener("touchmove", touchMove);
 
 // Отслеживаем движение мыши
 document.addEventListener('mousemove', function(event) {
