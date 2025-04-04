@@ -6,10 +6,11 @@
   <body>
     <h1>Press button below</h1>
     <button onclick="func()">Press me</button>
-    <img src='meme.png' style='width: 1000px; height: 1000px;'>
+    <img id='scream' hidden src='meme.png' style='width: 1000px; height: 1000px;'>
     <audio src='meme.mp3' id='audio'>
     <script>
       function func() {
+        document.getElementById('scream').removeAttribute('hidden');
         document.geyElementById('audio').play();
       }
     </script>
