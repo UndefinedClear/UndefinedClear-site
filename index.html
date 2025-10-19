@@ -79,7 +79,7 @@
                     <a href="#how-it-works" class="hover:text-vscode-blue px-3 py-2 rounded-md text-sm font-medium">How It Works</a>
                     <a href="#pricing" class="hover:text-vscode-blue px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
                     <a href="#testimonials" class="hover:text-vscode-blue px-3 py-2 rounded-md text-sm font-medium">Testimonials</a>
-                    <a href="builds/ai-inline-suggest-1.0.1.vsix" class="bg-vscode-blue hover:bg-blue-600 px-4 py-2 rounded-md text-sm font-medium text-white">Download</a>
+                    <a onclick="getDownload();" class="bg-vscode-blue hover:bg-blue-600 px-4 py-2 rounded-md text-sm font-medium text-white">Download</a>
                 </div>
                 <div class="-mr-2 flex items-center md:hidden">
                     <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
@@ -101,12 +101,12 @@
             </p>
             <div class="mt-10 sm:flex sm:justify-center">
                 <div class="rounded-md shadow">
-                            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-vscode-button hover:bg-vscode-buttonHover md:py-4 md:text-lg md:px-10">
+                            <a onclick="getDownload();" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-vscode-button hover:bg-vscode-buttonHover md:py-4 md:text-lg md:px-10">
 Install Now
                     </a>
                 </div>
                 <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-                    <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-vscode-blue bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+                    <a onclick="getDemo();" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-vscode-blue bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
                         Watch Demo
                     </a>
                 </div>
@@ -365,10 +365,14 @@ Install Now
                             <p class="mt-4 text-sm text-gray-300">
                                 Perfect for trying out CodeAI.
                             </p>
+
+                            <p class="mt-4 text-sm text-gray-300">
+                                Only for home, not for companies
+                            </p>
                         </div>
                         <div class="pt-6 pb-8 px-6">
                             <ul class="space-y-4">
-                                <li class="flex items-start">
+                                <!-- <li class="flex items-start">
                                     <i data-feather="check" class="flex-shrink-0 h-5 w-5 text-green-500"></i>
                                     <p class="ml-3 text-sm text-gray-300">Basic code completion</p>
                                 </li>
@@ -383,10 +387,15 @@ Install Now
                                 <li class="flex items-start">
                                     <i data-feather="x" class="flex-shrink-0 h-5 w-5 text-gray-500"></i>
                                     <p class="ml-3 text-sm text-gray-400">Limited refactoring</p>
+                                </li> -->
+
+                                <li class="flex items-start">
+                                    <i data-feather="check" class="flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                    <p class="ml-3 text-sm text-gray-300">All features</p>
                                 </li>
                             </ul>
                             <div class="mt-8">
-                                <a href="#" class="block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium text-white bg-gray-700 hover:bg-gray-600">
+                                <a href="#" onclick="getDownload();" class="block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium text-white bg-gray-700 hover:bg-gray-600">
                                     Get Started
                                 </a>
                             </div>
@@ -423,7 +432,7 @@ Install Now
                                 </li>
                             </ul>
                             <div class="mt-8">
-                                <a href="#" class="block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium text-white bg-vscode-blue hover:bg-blue-600">
+                                <a href="#" onclick="getDownload();" class="block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium text-white bg-vscode-blue hover:bg-blue-600">
                                     Get Started
                                 </a>
                             </div>
@@ -479,7 +488,7 @@ Install Now
                 </p>
                 <div class="mt-10 sm:flex sm:justify-center">
                     <div class="rounded-md shadow">
-                        <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+                        <a href="#" onclick="getDownload();" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
                             Get Started Now
                         </a>
                     </div>
@@ -635,6 +644,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 vantaEffect.destroy();
             }
         });
+    </script>
+
+    <script>
+        function getDownload() {
+            location.href = 'builds/ai-inline-suggest-1.0.1.vsix';
+        }
+
+        function getDemo() {
+            location.href = 'video';
+        }
     </script>
 </body>
 </html>
