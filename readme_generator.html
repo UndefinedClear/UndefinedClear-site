@@ -596,25 +596,25 @@
                 const repo = urlParams.get('repo') || urlParams.get('repository');
                 
                 // Пробуем также получить из формата user/repo
-                const fullRepo = urlParams.get('q');
-                if (fullRepo && fullRepo.includes('/')) {
-                    const parts = fullRepo.split('/');
-                    if (parts.length >= 2) {
-                        return {
-                            owner: parts[0],
-                            repo: parts[1]
-                        };
-                    }
-                }
+                // const fullRepo = urlParams.get('q');
+                // if (fullRepo && fullRepo.includes('/')) {
+                //     const parts = fullRepo.split('/');
+                //     if (parts.length >= 2) {
+                //         return {
+                //             owner: parts[0],
+                //             repo: parts[1]
+                //         };
+                //     }
+                // }
                 
                 // Если в URL есть путь типа /owner/repo
-                const pathMatch = window.location.pathname.match(/\/([^\/]+)\/([^\/]+)/);
-                if (pathMatch && !owner && !repo) {
-                    return {
-                        owner: pathMatch[1],
-                        repo: pathMatch[2]
-                    };
-                }
+                // const pathMatch = window.location.pathname.match(/\/([^\/]+)\/([^\/]+)/);
+                // if (pathMatch && !owner && !repo) {
+                //     return {
+                //         owner: pathMatch[1],
+                //         repo: pathMatch[2]
+                //     };
+                // }
                 
                 // Возвращаем дефолтные значения если query args не указаны
                 return {
