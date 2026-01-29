@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub README Viewer</title>
+    <title>GitHub README Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-dark.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link rel="favicon" src="https://github.githubassets.com/favicons/favicon-dark.png"></link>
     <style>
         * {
             margin: 0;
@@ -618,7 +619,7 @@
                 // Возвращаем дефолтные значения если query args не указаны
                 return {
                     owner: owner || 'UndefinedClear',
-                    repo: repo || 'DiamondEye'
+                    repo: repo || 'UndefinedClear-site'
                 };
             }
 
@@ -718,6 +719,7 @@
                     'README.md',
                     'README.MD',
                     'readme.md',
+                    'readme.MD',
                     'README',
                     'readme'
                 ];
