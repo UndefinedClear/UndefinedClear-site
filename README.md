@@ -1,6 +1,6 @@
 # 📖 Read Generator
 ## ⚡ Live demo: 
-https://undefinedclear.github.io/UndefinedClear-site/readme_generator.htm
+https://undefinedclear.github.io/UndefinedClear-site/readme_generator.html
 
 ## 💡 How to make?
 ```html
