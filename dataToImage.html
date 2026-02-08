@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Image from Query</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #111;
+    }
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <script>
+  const params = new URLSearchParams(location.search);
+  const img = params.get("image");
+  if (img?.startsWith("data:image/")) {
+    location.replace(img);
+  } else {
+    document.body.textContent = "Invalid image";
+  }
+</script>
+  
+</body>
+</html>
