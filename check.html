@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic — Imperior</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <style>
+        :root {
+            --bg-page: #F9FAFB;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --text-primary: #0F172A;
+            --text-secondary: #64748B;
+            --border-color: #E2E8F0;
+            --accent-color: #0F172A;
+            --accent-text: #FFFFFF;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-page: #000000;
+            --bg-card: rgba(10, 10, 10, 0.8);
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --border-color: #1E293B;
+            --accent-color: #F1F5F9;
+            --accent-text: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        #vanta-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .test-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .test-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            transition: transform 0.2s;
+        }
+
+        .test-item:hover {
+            transform: scale(1.02);
+        }
+
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #E2E8F0;
+            color: #64748B;
+        }
+
+        .status-ok {
+            background: #DCFCE7;
+            color: #166534;
+        }
+
+        .status-error {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .btn-check {
+            width: 100%;
+            padding: 1.5rem;
+            background: var(--accent-color);
+            color: var(--accent-text);
+            border: none;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 1.125rem;
+            cursor: pointer;
+            margin-top: 3rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-check:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.1);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vanta-canvas"></div>
+
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Назад к Империи
+        </a>
+
+        <div class="header">
+            <h1 style="font-size: 3rem; font-weight: 800; letter-spacing: -0.05em; margin-bottom: 1rem;">Диагностика
+            </h1>
+            <p style="color: var(--text-secondary); font-size: 1.125rem;">Проверка доступности ключевых сервисов через
+                ваш текущий туннель.</p>
+        </div>
+
+        <div class="test-list" id="test-list">
+            <!-- Items filled via JS -->
+        </div>
+
+        <button class="btn-check" id="check-btn">ЗАПУСТИТЬ ТЕСТ</button>
+    </div>
+
+    <script>
+        const domains = [
+            { name: "YouTube", url: "https://www.youtube.com/favicon.ico" },
+            { name: "Discord", url: "https://discord.com/favicon.ico" },
+            { name: "ChatGPT (OpenAI)", url: "https://chat.openai.com/favicon.ico" },
+            { name: "DeepSeek", url: "https://www.deepseek.com/favicon.ico" },
+            { name: "X.com (Twitter)", url: "https://x.com/favicon.ico" },
+            { name: "Reddit", url: "https://www.reddit.com/favicon.ico" },
+            { name: "Xbox Live", url: "https://www.xbox.com/favicon.ico" },
+            { name: "Gemini (Google)", url: "https://gemini.google.com/favicon.ico" },
+            { name: "Brawl Stars", url: "https://supercell.com/favicon.ico" },
+            { name: "Instagram (Meta)", url: "https://www.instagram.com/favicon.ico" }
+        ];
+
+        let vantaEffect = null;
+
+        function initVanta() {
+            if (vantaEffect) vantaEffect.destroy();
+            const theme = document.documentElement.getAttribute('data-theme') || 'light';
+            vantaEffect = VANTA.NET({
+                el: "#vanta-canvas",
+                mouseControls: true,
+                touchControls: true,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                color: theme === 'dark' ? 0xffffff : 0x000000,
+                backgroundColor: theme === 'dark' ? 0x000000 : 0xf9fafb,
+                points: 12.00,
+                maxDistance: 24.00,
+                spacing: 16.00
+            });
+        }
+
+        function renderList() {
+            const list = document.getElementById("test-list");
+            list.innerHTML = domains.map((d, i) => `
+                <div class="test-item">
+                    <span style="font-weight: 700;">${d.name}</span>
+                    <span class="status-badge status-pending" id="status-${i}">ОЖИДАНИЕ</span>
+                </div>
+            `).join("");
+        }
+
+        async function runTests() {
+            const btn = document.getElementById("check-btn");
+            btn.disabled = true;
+            btn.innerText = "ИДЕТ ПРОВЕРКА...";
+
+            for (let i = 0; i < domains.length; i++) {
+                const badge = document.getElementById(`status-${i}`);
+                badge.className = "status-badge status-pending";
+                badge.innerText = "ПРОВЕРКА...";
+
+                try {
+                    // Try to fetch favicon with no-cors. 
+                    // If it loads (opaque), it means it's accessible.
+                    // Timeout included.
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+                    await fetch(domains[i].url, { mode: 'no-cors', signal: controller.signal });
+
+                    badge.className = "status-badge status-ok";
+                    badge.innerText = "ДОСТУПНО";
+                    clearTimeout(timeoutId);
+                } catch (e) {
+                    badge.className = "status-badge status-error";
+                    badge.innerText = "БЛОКИРОВКА";
+                }
+                // Small delay for drama
+                await new Promise(r => setTimeout(r, 400));
+            }
+
+            btn.disabled = false;
+            btn.innerText = "ПОВТОРИТЬ ТЕСТ";
+        }
+
+        document.getElementById("check-btn").onclick = runTests;
+
+        // Init
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        initVanta();
+        renderList();
+    </script>
+</body>
+
+</html>
