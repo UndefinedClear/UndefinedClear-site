@@ -82,11 +82,34 @@
             justify-content: space-between;
             align-items: center;
             backdrop-filter: blur(12px);
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .test-item:hover {
             transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .service-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #fff;
+            padding: 4px;
+            border: 1px solid var(--border-color);
+            object-fit: contain;
+        }
+
+        .status-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .status-badge {
@@ -110,6 +133,40 @@
         .status-error {
             background: #FEE2E2;
             color: #991B1B;
+        }
+
+        .check-icon,
+        .error-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .check-icon {
+            background: #22C55E;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+        }
+
+        .error-icon {
+            background: #EF4444;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .btn-check {
@@ -177,16 +234,16 @@
 
     <script>
         const domains = [
-            { name: "YouTube", url: "https://www.youtube.com/favicon.ico" },
-            { name: "Discord", url: "https://discord.com/favicon.ico" },
-            { name: "ChatGPT (OpenAI)", url: "https://chat.openai.com/favicon.ico" },
-            { name: "DeepSeek", url: "https://www.deepseek.com/favicon.ico" },
-            { name: "X.com (Twitter)", url: "https://x.com/favicon.ico" },
-            { name: "Reddit", url: "https://www.reddit.com/favicon.ico" },
-            { name: "Xbox Live", url: "https://www.xbox.com/favicon.ico" },
-            { name: "Gemini (Google)", url: "https://gemini.google.com/favicon.ico" },
-            { name: "Brawl Stars", url: "https://supercell.com/favicon.ico" },
-            { name: "Instagram (Meta)", url: "https://www.instagram.com/favicon.ico" }
+            { name: "YouTube", url: "https://www.youtube.com/favicon.ico", logo: "https://www.google.com/s2/favicons?domain=youtube.com&sz=64" },
+            { name: "Discord", url: "https://discord.com/favicon.ico", logo: "https://www.google.com/s2/favicons?domain=discord.com&sz=64" },
+            { name: "ChatGPT (OpenAI)", url: "https://chatgpt.com/favicon.ico", logo: "https://www.google.com/s2/favicons?domain=openai.com&sz=64" },
+            { name: "DeepSeek", url: "https://www.deepseek.com/favicon.ico", logo: "https://www.google.com/s2/favicons?domain=deepseek.com&sz=64" },
+            { name: "X.com (Twitter)", url: "https://x.com/favicon.ico", logo: "https://www.google.com/s2/favicons?domain=x.com&sz=64" },
+            { name: "Reddit", url: "https://www.reddit.com/favicon.ico", logo: "https://www.google.com/s2/favicons?domain=reddit.com&sz=64" },
+            { name: "Xbox Live", url: "https://www.xbox.com/favicon.ico", logo: "https://www.google.com/s2/favicons?domain=xbox.com&sz=64" },
+            { name: "Gemini (Google)", url: "https://gemini.google.com/favicon.ico", logo: "https://www.google.com/s2/favicons?domain=gemini.google.com&sz=64" },
+            { name: "Brawl Stars", url: "https://supercell.com/favicon.ico", logo: "https://www.google.com/s2/favicons?domain=supercell.com&sz=64" },
+            { name: "Instagram (Meta)", url: "https://www.instagram.com/favicon.ico", logo: "https://www.google.com/s2/favicons?domain=instagram.com&sz=64" }
         ];
 
         let vantaEffect = null;
@@ -212,8 +269,19 @@
             const list = document.getElementById("test-list");
             list.innerHTML = domains.map((d, i) => `
                 <div class="test-item">
-                    <span style="font-weight: 700;">${d.name}</span>
-                    <span class="status-badge status-pending" id="status-${i}">ОЖИДАНИЕ</span>
+                    <div class="service-info">
+                        <img src="${d.logo}" alt="" class="service-logo">
+                        <span style="font-weight: 700;">${d.name}</span>
+                    </div>
+                    <div class="status-area">
+                        <div class="check-icon" id="check-${i}">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <div class="error-icon" id="error-${i}">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </div>
+                        <span class="status-badge status-pending" id="status-${i}">ОЖИДАНИЕ</span>
+                    </div>
                 </div>
             `).join("");
         }
@@ -225,27 +293,29 @@
 
             for (let i = 0; i < domains.length; i++) {
                 const badge = document.getElementById(`status-${i}`);
+                const check = document.getElementById(`check-${i}`);
+                const error = document.getElementById(`error-${i}`);
                 badge.className = "status-badge status-pending";
                 badge.innerText = "ПРОВЕРКА...";
+                check.style.display = "none";
+                error.style.display = "none";
 
                 try {
-                    // Try to fetch favicon with no-cors. 
-                    // If it loads (opaque), it means it's accessible.
-                    // Timeout included.
                     const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 3000);
+                    const timeoutId = setTimeout(() => controller.abort(), 4000);
 
                     await fetch(domains[i].url, { mode: 'no-cors', signal: controller.signal });
 
                     badge.className = "status-badge status-ok";
                     badge.innerText = "ДОСТУПНО";
+                    check.style.display = "flex";
                     clearTimeout(timeoutId);
                 } catch (e) {
                     badge.className = "status-badge status-error";
                     badge.innerText = "БЛОКИРОВКА";
+                    error.style.display = "flex";
                 }
-                // Small delay for drama
-                await new Promise(r => setTimeout(r, 400));
+                await new Promise(r => setTimeout(r, 300));
             }
 
             btn.disabled = false;
