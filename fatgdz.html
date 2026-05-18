@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fat GDZ — Алгебра 8 класс (Макарычев, углубленный)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 20%, #f1f5f9, #e0e7ef);
+            min-height: 100vh;
+        }
+        /* стеклянный карточный стиль */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+        }
+        /* контейнер для изображения — плавное появление */
+        .image-wrapper {
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            opacity: 0;
+            transform: translateY(18px);
+        }
+        .image-wrapper.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* улучшенный фокус для инпута */
+        .focus-ring:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
+            border-color: #3b82f6;
+        }
+        /* кнопка с давлением */
+        .btn-press {
+            transition: transform 0.1s ease, background 0.2s;
+        }
+        .btn-press:active {
+            transform: scale(0.97);
+        }
+        /* кастомный стиль для временного сообщения / скелетона */
+        .info-badge {
+            transition: all 0.2s;
+        }
+        /* затемнение при ошибке/загрузке не ломает интерфейс */
+        img {
+            background: #fef9e3;
+            min-height: 120px;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4 sm:p-6">
+
+    <div class="w-full max-w-3xl mx-auto">
+        <!-- Заголовок с акцентом -->
+        <div class="text-center mb-8 md:mb-10">
+            <div class="inline-flex items-center gap-2 bg-white/40 rounded-full px-4 py-1 backdrop-blur-sm mb-3">
+                <span class="text-blue-700 text-sm font-semibold">📘 углублённый уровень</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-800 mb-2">
+                Алгебра <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-indigo-600">8 класс</span>
+            </h1>
+            <p class="text-slate-500 font-medium text-lg">Макарычев, углубленный уровень | ГДЗ моментально</p>
+        </div>
+
+        <!-- Карточка ввода номера -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 mb-9 max-w-md mx-auto">
+            <div class="flex flex-col gap-5">
+                <div class="relative">
+                    <label for="exerciseNumber" class="block text-sm font-semibold text-slate-600 mb-1 ml-1">Номер задания</label>
+                    <input
+                        type="number"
+                        id="exerciseNumber"
+                        placeholder="Например: 7, 42, 103"
+                        class="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white/80 focus-ring transition-all text-lg font-semibold text-slate-800 shadow-sm"
+                        autocomplete="off"
+                    >
+                </div>
+                <button
+                    id="loadButton"
+                    class="btn-press w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-500/30 text-lg"
+                >
+                    🔍 Показать решение
+                </button>
+            </div>
+        </div>
+
+        <!-- Область результата: изображение + подсказки без начальной ошибки -->
+        <div id="resultArea" class="flex flex-col items-center justify-center">
+            <!-- Этот блок будет содержать либо картинку, либо нейтральное сообщение-приглашение -->
+            <div id="dynamicImageContainer" class="image-wrapper w-full flex justify-center">
+                <!-- Изначально нет никакого изображения, нет ошибки, только дружественный пустой блок -->
+                <div id="emptyStateMessage" class="bg-white/40 backdrop-blur-sm rounded-2xl px-8 py-12 text-center border border-white/50 shadow-md max-w-md">
+                    <div class="text-5xl mb-3">📖✨</div>
+                    <h3 class="text-xl font-semibold text-slate-700">Введите номер задания</h3>
+                    <p class="text-slate-500 mt-2 text-sm">Нажмите «Показать решение» — и мы найдём готовое решение из упражнений.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-slate-400 text-sm border-t border-white/40 pt-6">
+            © 2026 Fat GDZ · Мгновенный просмотр решений · Углубленный Макарычев
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            // DOM элементы
+            const inputElement = document.getElementById('exerciseNumber');
+            const loadBtn = document.getElementById('loadButton');
+            const resultArea = document.getElementById('resultArea');
+            const dynamicContainer = document.getElementById('dynamicImageContainer');
+
+            // Базовый URL для изображений (проверенный endpoint с надежной структурой)
+            // Используем оригинальный домен gdz.ltd, который хостит реальные решения
+            const BASE_URL = 'https://gdz.ltd/content/8-class/algebra/Makarychev-uglublennyj-uroven-prosveschenie/exercise/0-Uprazhneniya/';
+            
+            // Функция для создания элемента изображения с обработчиками
+            function createImageElement(number) {
+                const img = new Image();
+                // атрибуты для стилизации и удобства
+                img.className = "rounded-2xl shadow-2xl border-4 border-white max-w-full h-auto bg-gray-50";
+                img.alt = `Решение задания №${number} (Макарычев, углубленный)`;
+                img.style.transition = "opacity 0.2s";
+                // Устанавливаем src динамически
+                const imageUrl = `${BASE_URL}${number}.jpg`;
+                img.src = imageUrl;
+                return img;
+            }
+
+            // Функция отображения состояния "загрузка" – чистый скелетон, никакой ошибки
+            function showLoadingState(number) {
+                // Очищаем контейнер и показываем анимацию загрузки
+                dynamicContainer.innerHTML = '';
+                dynamicContainer.classList.remove('revealed');
+                
+                // Создаём элемент скелетона или индикатор загрузки
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = "bg-white/70 backdrop-blur-sm rounded-2xl p-8 text-center shadow-md border border-white/60 w-full max-w-lg mx-auto";
+                loadingDiv.innerHTML = `
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+                        <p class="text-slate-600 font-medium">Загружаем решение для номера ${number}...</p>
+                        <p class="text-xs text-slate-400">Проверяем источник изображения</p>
+                    </div>
+                `;
+                dynamicContainer.appendChild(loadingDiv);
+                // плавный показ блока
+                setTimeout(() => dynamicContainer.classList.add('revealed'), 10);
+            }
+
+            // Функция отображения успешного изображения
+            function showImageSuccess(imageElement, number) {
+                // полностью очищаем контейнер и вставляем картинку
+                dynamicContainer.innerHTML = '';
+                // оборачиваем картинку в небольшой контейнер для эстетики
+                const imgWrapper = document.createElement('div');
+                imgWrapper.className = "relative group w-full flex justify-center";
+                imgWrapper.appendChild(imageElement);
+                dynamicContainer.appendChild(imgWrapper);
+                
+                // добавляем класс видимости для анимации
+                dynamicContainer.classList.add('revealed');
+                
+                // плавный скролл к результату, но только если элемент не в начале видимости
+                setTimeout(() => {
+                    const rect = dynamicContainer.getBoundingClientRect();
+                    const isVisible = (rect.top >= 0 && rect.bottom <= window.innerHeight);
+                    if (!isVisible) {
+                        window.scrollTo({
+                            top: window.scrollY + rect.top - 80,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        // легкий скролл для акцента, если нужно
+                        window.scrollBy({ top: 10, behavior: 'smooth' });
+                    }
+                }, 100);
+            }
+
+            // Функция ошибки: показываем понятное сообщение, но без алерта с агрессией
+            function showErrorState(number, reason = 'notfound') {
+                dynamicContainer.innerHTML = '';
+                dynamicContainer.classList.remove('revealed');
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.className = "bg-amber-50/90 backdrop-blur-sm rounded-2xl p-8 text-center shadow-md border border-amber-200 w-full max-w-md mx-auto";
+                
+                if (reason === 'invalid_input') {
+                    errorDiv.innerHTML = `
+                        <div class="text-4xl mb-2">⚠️</div>
+                        <h4 class="text-xl font-semibold text-amber-800">Номер не указан</h4>
+                        <p class="text-amber-700 mt-2">Введите номер упражнения (целое число) и попробуйте снова.</p>
+                        <button id="retryEmptyBtn" class="mt-4 px-5 py-2 bg-amber-600 text-white rounded-xl text-sm font-medium shadow-md hover:bg-amber-700 transition">Ввести номер</button>
+                    `;
+                } else {
+                    errorDiv.innerHTML = `
+                        <div class="text-5xl mb-2">📭</div>
+                        <h4 class="text-xl font-semibold text-slate-800">Решение не найдено</h4>
+                        <p class="text-slate-600 mt-2">К сожалению, изображение для номера <span class="font-mono bg-slate-100 px-2 py-0.5 rounded">${number}</span> отсутствует в базе.</p>
+                        <p class="text-slate-500 text-sm mt-1">Проверьте правильность номера или попробуйте другой (упражнения 1–500).</p>
+                        <div class="mt-4 flex flex-wrap gap-2 justify-center">
+                            <button id="tryAgainBtn" class="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-medium shadow hover:bg-blue-700 transition">🔁 Попробовать снова</button>
+                            <button id="suggestExample" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-300 transition">📘 Пример: 34</button>
+                        </div>
+                    `;
+                }
+                
+                dynamicContainer.appendChild(errorDiv);
+                dynamicContainer.classList.add('revealed');
+                
+                // обработчики кнопок внутри ошибки (чтобы улучшить UX без багов)
+                if (reason !== 'invalid_input') {
+                    const retryBtn = errorDiv.querySelector('#tryAgainBtn');
+                    if (retryBtn) {
+                        retryBtn.addEventListener('click', () => {
+                            const currentVal = inputElement.value.trim();
+                            if (currentVal) loadImageLogic();
+                            else showErrorState('', 'invalid_input');
+                        });
+                    }
+                    const suggestBtn = errorDiv.querySelector('#suggestExample');
+                    if (suggestBtn) {
+                        suggestBtn.addEventListener('click', () => {
+                            inputElement.value = '34';
+                            loadImageLogic();
+                        });
+                    }
+                } else {
+                    const emptyRetry = errorDiv.querySelector('#retryEmptyBtn');
+                    if (emptyRetry) {
+                        emptyRetry.addEventListener('click', () => {
+                            inputElement.focus();
+                            // убираем сообщение в нейтральное состояние
+                            resetToEmptyWelcome();
+                        });
+                    }
+                }
+            }
+            
+            // функция сброса к приветственному экрану (никаких ошибок и картинок)
+            function resetToEmptyWelcome() {
+                dynamicContainer.innerHTML = '';
+                dynamicContainer.classList.remove('revealed');
+                const emptyDiv = document.createElement('div');
+                emptyDiv.id = "emptyStateMessage";
+                emptyDiv.className = "bg-white/40 backdrop-blur-sm rounded-2xl px-8 py-12 text-center border border-white/50 shadow-md max-w-md";
+                emptyDiv.innerHTML = `
+                    <div class="text-5xl mb-3">📖✨</div>
+                    <h3 class="text-xl font-semibold text-slate-700">Введите номер задания</h3>
+                    <p class="text-slate-500 mt-2 text-sm">Нажмите «Показать решение» — и мы найдём готовое решение из упражнений.</p>
+                `;
+                dynamicContainer.appendChild(emptyDiv);
+                setTimeout(() => dynamicContainer.classList.add('revealed'), 10);
+            }
+
+            // Основная логика загрузки изображения с проверкой успешной загрузки
+            function loadImageLogic() {
+                let numberRaw = inputElement.value.trim();
+                
+                // если поле пустое -> мягкая ошибка "нет номера"
+                if (numberRaw === "") {
+                    showErrorState(null, 'invalid_input');
+                    return;
+                }
+                
+                // преобразование в целое число (чтобы отсечь некорректные символы)
+                const numberInt = Number(numberRaw);
+                if (isNaN(numberInt) || !Number.isInteger(numberInt) || numberInt <= 0) {
+                    showErrorState(numberRaw, 'invalid_input');
+                    return;
+                }
+                
+                // валидный номер
+                const finalNumber = numberInt;
+                // запускаем состояние загрузки (скелетон)
+                showLoadingState(finalNumber);
+                
+                // Создаем новый объект изображения для полного контроля над onload/onerror
+                const testImage = new Image();
+                let finished = false;
+                
+                // Таймаут на случай, если изображение очень долго грузится или сервер молчит
+                const timeoutId = setTimeout(() => {
+                    if (!finished) {
+                        finished = true;
+                        // очистка загрузки и показ ошибки таймаута
+                        showErrorState(finalNumber, 'notfound');
+                    }
+                }, 10000); // 10 секунд таймаут
+                
+                testImage.onload = () => {
+                    if (finished) return;
+                    finished = true;
+                    clearTimeout(timeoutId);
+                    // изображение успешно загружено -> показываем его
+                    // клонируем изображение или используем существующее, но для чистоты создаем новый img с тем же src
+                    const finalImg = new Image();
+                    finalImg.className = "rounded-2xl shadow-2xl border-4 border-white max-w-full h-auto bg-gray-50";
+                    finalImg.alt = `Решение №${finalNumber}`;
+                    finalImg.src = testImage.src;
+                    // дополнительно сохраняем ссылку, чтоб при повторном клике не дублировать
+                    showImageSuccess(finalImg, finalNumber);
+                };
+                
+                testImage.onerror = () => {
+                    if (finished) return;
+                    finished = true;
+                    clearTimeout(timeoutId);
+                    // Ошибка загрузки: решение не найдено (404 или битая ссылка)
+                    showErrorState(finalNumber, 'notfound');
+                };
+                
+                // Формируем URL и начинаем загрузку
+                const imageUrl = `${BASE_URL}${finalNumber}.jpg`;
+                testImage.src = imageUrl;
+                
+                // Если изображение уже загрузилось из кеша мгновенно? обработчики сработают.
+                // Дополнительная проверка на случай, если testImage.complete === true (кешированное)
+                if (testImage.complete && !finished) {
+                    // в некоторых браузерах onload может не вызваться, если complete уже true, но код подстрахует
+                    if (testImage.naturalWidth > 0) {
+                        // изображение реально существует
+                        testImage.onload && testImage.onload();
+                    } else {
+                        testImage.onerror && testImage.onerror();
+                    }
+                }
+            }
+            
+            // функция, вызываемая по нажатию кнопки или Enter
+            function onSearchRequest() {
+                loadImageLogic();
+            }
+            
+            // Добавляем обработчики событий
+            if (loadBtn) {
+                loadBtn.addEventListener('click', onSearchRequest);
+            }
+            
+            if (inputElement) {
+                inputElement.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        onSearchRequest();
+                    }
+                });
+            }
+            
+            // Инициализация страницы: гарантированно никакой ошибки при открытии
+            // очищаем любые потенциальные запросы и показываем красивое приветствие
+            resetToEmptyWelcome();
+            
+            // Дополнительно: если вдруг пользователь начал печатать и забыл про ошибку,
+            // но не нужно ничего, просто оставляем welcome state.
+            // Также на всякий случай предотвращаем ввод дробных и отрицательных значений через input number
+            inputElement.addEventListener('change', function() {
+                let val = this.value.trim();
+                if (val !== "") {
+                    let num = Number(val);
+                    if (!isNaN(num) && Number.isInteger(num) && num > 0) {
+                        // всё корректно, ничего не делаем
+                    } else if (val !== "") {
+                        // если ввели не целое положительное, подскажем через установку значения без агрессии
+                        this.setCustomValidity?.(null);
+                    }
+                }
+            });
+            
+            // небольшой фикс для мобильных: скролл не ломается
+            window.addEventListener('load', () => {
+                // страница полностью готова, нет запросов к несуществующим картинкам
+                // дополнительная проверка на пустоту области результата
+                if (dynamicContainer && dynamicContainer.children.length === 0) {
+                    resetToEmptyWelcome();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
